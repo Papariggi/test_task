@@ -1,0 +1,40 @@
+<aura:component controller="CurrencyPairDisplayController" implements="flexipage:availableForAllPageTypes" access="global">
+	<aura:attribute name="isResponseEmpty" type="Boolean" default="false"/>
+	<aura:attribute name="currencyPair" type="List"/>
+
+	<aura:handler name="init" value="{!this}" action="c.doInit"/>
+
+    <lightning:card title="{! 'Currency pair table'}">
+		<aura:if isTrue="{!v.isResponseEmpty}">
+			<div class="slds-text-align_center slds-text-color_error  slds-text-heading_medium" title="Service error">Service error, please try again later</div>
+			<aura:set attribute="else">
+				<div class="slds-scrollable_y" style="height:15rem">
+					<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+						<thead>
+							<tr class="slds-line-height_reset">
+								<th class="" scope="col">
+									<div class="slds-truncate" title="Pair">Pair</div>
+								</th>
+								<th class="" scope="col">
+									<div class="slds-truncate" title="Pair">Value</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<aura:iteration items="{!v.currencyPair}" var="pair" indexVar="key">
+								<tr class="slds-hint-parent">
+									<td data-label="pair">
+										<div class="slds-truncate">{!pair.key}</div>
+									</td>
+									<td data-label="value">
+										<div class="slds-truncate">{!pair.value}</div>
+									</td>
+								</tr>
+							</aura:iteration>
+						</tbody>
+					</table>
+				</div>
+			</aura:set>
+		</aura:if>
+	</lightning:card>
+</aura:component>	
